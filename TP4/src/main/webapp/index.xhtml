@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>TP4</title>
+	<h:outputStylesheet library="css" name="mdb.min.css" />
+</h:head>
+<h:body>
+	<h:form>
+		<div class="m-3">
+			<h:messages for="civilite" class="container alert alert-danger"
+				style="color:red;" />
+			<h:messages for="nom" class="container alert alert-danger"
+				style="color:red;" />
+			<h:messages for="prenom" class="container alert alert-danger"
+				style="color:red;" />
+			<h:messages for="cp" class="container alert alert-danger"
+				style="color:red;" />
+			<h:messages for="dateN" class="container alert alert-danger"
+				style="color:red;" />
+
+		</div>
+		<h:panelGrid columns="3" styleClass="container mt-4">
+			<h:outputText value="Civilite:" styleClass="form-label" />
+			<h:outputText value="Nom:" styleClass="form-label" />
+			<h:outputText value="Prenom:" styleClass="form-label" />
+
+			<h:inputText value="#{client.civilite}" id="civilite"
+				styleClass="form-control" required="true"
+				requiredMessage="Civilite ne doit pas etre vide" />
+			<h:inputText value="#{client.nom}" id="nom" styleClass="form-control"
+				required="true" requiredMessage="Nom ne doit pas etre vide" />
+			<h:inputText value="#{client.prenom}" id="prenom"
+				styleClass="form-control" required="true"
+				requiredMessage="Prenom ne doit pas etre vide" />
+
+			<h:outputText value="CP:" styleClass="form-label" />
+			<h:outputText value="Ville:" styleClass="form-label" />
+			<h:outputText value="" styleClass="form-label" />
+
+			<h:inputText value="#{client.cp}" id="cp" styleClass="form-control"
+				required="true" requiredMessage="CP ne doit pas etre vide"
+				validatorMessage=" Veuillez entrer dans CP une chaine au minimun 5 nombres entre 10000 et 90000 ">
+				<f:validateLength minimum="5"  />
+				<f:validateLongRange minimum="10000" maximum="90000" />
+			</h:inputText>
+			<h:inputText value="#{client.ville}" styleClass="form-control"
+				required="true" maxlength="10"
+				validatorMessage="Le nombre de caractères du champ ville ne doit pas dépasser 10" />
+			<h:commandButton value="Enregistrer" action="#{client.SaveClient}"
+				styleClass="btn btn-primary" />
+
+			<h:outputText value="Date Naissance:" styleClass="form-label" />
+			<h:outputText value="Mail:" styleClass="form-label" />
+			<h:outputText value="Telephone:" styleClass="form-label" />
+
+			<h:inputText value="#{client.dateN}" styleClass="form-control"
+				id="dateN">
+				<f:convertDateTime pattern="dd-MM-yyyy" required="true" />
+			</h:inputText>
+			<h:inputText value="#{client.mail}" styleClass="form-control" />
+			<h:inputText value="#{client.tel}" styleClass="form-control" />
+		</h:panelGrid>
+	</h:form>
+
+	<br />
+	<br />
+	<br />
+	<br />
+
+	<h:form styleClass="container">
+		<h:dataTable value="#{client.getAllClients()}" var="l"
+			styleClass="table table-striped table-hover">
+			<h:column>
+				<f:facet name="header">Civilité</f:facet>
+				<h:outputText value="#{l.civilite}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Nom</f:facet>
+				<h:outputText value="#{l.nom}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Prénom</f:facet>
+				<h:outputText value="#{l.prenom}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">CP</f:facet>
+				<h:outputText value="#{l.cp}">
+					<f:convertNumber type="percent" />
+				</h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Ville</f:facet>
+				<h:outputText value="#{l.ville}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">DateN</f:facet>
+				<h:outputText value="#{l.dateN}">
+					<f:convertDateTime pattern="EEEE dd MMMM yyyy" />
+				</h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Téléphone</f:facet>
+				<h:outputText value="#{l.tel}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Email</f:facet>
+				<h:outputText value="#{l.mail}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Actions</f:facet>
+				<h:commandButton value="Delete" styleClass="btn btn-danger"  onclick="return confirmDelete();" action="#{client.deleteClient(l)}"/>
+			</h:column>
+		</h:dataTable>
+	</h:form>
+	<script>
+		function confirmDelete() {
+			return confirm("Are you sure you want to delete this record?");
+		}
+	</script>
+</h:body>
+</html>

@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="Client" table="TABLE_CLIENT">
+		<id name="code" type="int">
+			<column name="CODE_Client" />
+			<generator class="increment" />
+		</id>
+		<property name="civilite" type="java.lang.String">
+			<column name="CIVILITE_Client" />
+		</property>
+		<property name="nom" type="java.lang.String">
+			<column name="NOM_Client" />
+		</property>
+		<property name="prenom" type="java.lang.String">
+			<column name="PRENOM_Client" />
+		</property>
+		<property name="cp" type="java.lang.Integer">
+			<column name="CP_Client" />
+		</property>
+		<property name="ville" type="java.lang.String">
+			<column name="VILLE_Client" />
+		</property>
+		<property name="dateN" type="java.util.Date">
+			<column name="DATEN_Client" />
+		</property>
+		<property name="mail" type="java.lang.String">
+			<column name="MAIL_Client" />
+		</property>
+		<property name="tel" type="java.lang.Long">
+			<column name="TEL_Client" />
+		</property>
+	</class>
+</hibernate-mapping>
