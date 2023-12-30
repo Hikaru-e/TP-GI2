@@ -1,0 +1,83 @@
+<!-- index.xhtml -->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Test Page</title>
+	<h:outputStylesheet library="css" name="mdb.min.css" />
+</h:head>
+<h:body>
+	<div class="container mt-4">
+		<h:form>
+			<!-- Kiro Form -->
+			<h:panelGrid columns="2">
+				<h:outputLabel class="form-label" value="Immatricule :" />
+				<h:inputText value="#{Kiro.immatricule}" class="form-control" />
+				<h:outputLabel class="form-label" value="Nom :" />
+				<h:inputText value="#{Kiro.nom}" class="form-control" />
+				<h:commandButton value="add" class="btn btn-primary mt-2"
+					action="#{Kiro.add()}" />
+			</h:panelGrid>
+		</h:form>
+
+		<h:form>
+			<!-- Localee Form -->
+			<h:outputText value="LOCALS" class="form-label" />
+			<h:panelGrid columns="1" class="mb-4">
+				<!-- Localee Form Fields -->
+				<h:outputLabel for="adresse">Adresse:</h:outputLabel>
+				<h:inputText id="adresse"
+					value="#{localeeManagedBean.localee.adresse}" required="true" />
+				<h:outputLabel for="superficie">Superficie:</h:outputLabel>
+				<h:inputText id="superficie"
+					value="#{localeeManagedBean.localee.superficie}" required="true" />
+				<h:commandButton value="Insert"
+					action="#{localeeManagedBean.createLocalee}" />
+			</h:panelGrid>
+		</h:form>
+
+		<!-- Constructeur Form -->
+		<h:form>
+			<h:outputText value="CONSTRUCTEUR" class="form-label" />
+			<!-- Constructeur Form Fields -->
+			<h:panelGrid columns="1" class="mb-4">
+				<h:outputLabel value="Nom:" />
+				<h:inputText value="#{ConstructeurManagedBean.constructeur.nom}"
+					required="true" />
+				<h:outputLabel value="Adresse:" />
+				<h:inputText value="#{ConstructeurManagedBean.constructeur.adresse}"
+					required="true" />
+				<h:outputLabel value="Localee:" />
+				<h:selectOneMenu
+					value="#{ConstructeurManagedBean.constructeur.selectedLocalId}"
+					>
+					<f:selectItems value="#{ConstructeurManagedBean.availableLocalees}"
+						var="localee" itemLabel="#{localee.adresse}"
+						itemValue="#{localee.id}" />
+				</h:selectOneMenu>
+				<h:commandButton value="Save"
+					action="#{ConstructeurManagedBean.saveConstructeur}" />
+			</h:panelGrid>
+		</h:form>
+
+		<!-- Avion Form -->
+		<h:form>
+			<h:panelGrid columns="1" class="mb-4">
+				<h:outputText value="AVIONS" class="form-label " />
+				<!-- Avion Form Fields -->
+				<h:outputLabel value="Nom:" />
+				<h:inputText value="#{AvionManagedBean.avion.nom}" required="true" />
+				<h:outputLabel value="Constructeur:" />
+				<h:selectOneMenu value="#{AvionManagedBean.avion.constructeur}">
+					<f:selectItems value="#{AvionManagedBean.availableConstructeurs}"
+						var="constructeur" itemLabel="#{constructeur.nom}"
+						itemValue="#{constructeur}" />
+				</h:selectOneMenu>
+				<h:commandButton value="Save" action="#{AvionManagedBean.saveAvion}" />
+			</h:panelGrid>
+		</h:form>
+	</div>
+</h:body>
+</html>
